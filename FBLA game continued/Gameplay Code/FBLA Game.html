@@ -76,7 +76,7 @@
         <img id="F" src="../Images/Level Win Conditions/F.png" width="300" height="227">
         <img id="B" src="../Images/Level Win Conditions/B.png" width="300" height="227">
         <img id="A" src="../Images/Level Win Conditions/A.png" width="300" height="227">
-        <img id="endscreen" src="../Images/YOU WIN.png" width="1500" height="800" >
+        <img id="endscreen" src="../Images/YOU WIN.png" width="1500" height="800">
 
     </div>
 
@@ -167,6 +167,54 @@
             this.RightPressed;
 
             this.LeftPressed;
+
+            /*this.checkRight = () => {
+                if () {
+                    return true;
+                }
+                else {
+                    return false;
+                }
+            };
+
+            this.checkLeft = () => {
+                if () {
+                    return true;
+                }
+                else {
+                    return false;
+                }
+            };
+
+            this.checkTop = () => {
+                if () {
+                    return true;
+                }
+                else {
+                    return false;
+                }
+            };
+*/
+            this.checkBottom = () => {
+                 if (count === 0) {
+
+                    Row = CurrentMap[Math.floor((this.y + this.height) / 63)]
+
+                }
+
+                else {
+
+                    Row = CurrentMap[Math.floor((this.y + ViewportY + this.height - 1) / 63)]
+
+                }
+
+                if (Row[Math.floor((this.x + this.width + ViewportX) / 63)] === 0 && Row[Math.floor((this.x + ViewportX) / 63)] === 0) {
+                    return true;
+                }
+                else {
+                    return false;
+                }
+            };
 
             this.drawingRight = (Pieceindex) => { ctx.drawImage(document.getElementById(Pieceindex + "right"), this.x, this.y, this.width, this.height); }
 
@@ -307,21 +355,7 @@
             }
 
             this.Fall = () => {
-
-                if (count === 0) {
-
-                    Row = CurrentMap[Math.floor((this.y + this.height) / 63)]
-
-                }
-
-                else {
-
-                    Row = CurrentMap[Math.floor((this.y + ViewportY + this.height - 1) / 63)]
-
-                }
-
-                if (Row[Math.floor((this.x + this.width + ViewportX) / 63)] === 0 && Row[Math.floor((this.x + ViewportX) / 63)] === 0) {
-
+                    if (this.checkBottom () === true) {
                     this.falling = true;
 
                     if (this.y >= 500 && ViewportY < CurrentMap.length * 63 - 800) {
@@ -368,7 +402,6 @@
 
                 }
 
-                console.log(SideRowbottom)
 
                 if (SideRow[Math.floor((this.x + 1 + this.width + ViewportX) / 63)] == 0 && this.RightPressed == true && SideRowbottom[Math.floor((this.x + 1 + this.width + ViewportX) / 63)] == 0) {
 
@@ -636,31 +669,31 @@
 
                                 this.x++
 
+                            }
+
+                            drawLevel();
+
+                            this.draw();
+
+
+
                         }
 
-                    drawLevel();
+                        break;
 
-                    this.draw();
-
-
+                    }
 
                 }
 
-                break;
+                if (health <= 0) {
 
-            }
+                    health = 3
 
-        }
+                    this.respawn()
 
-        if (health <= 0) {
+                    drawLevel()
 
-            health = 3
-
-            this.respawn()
-
-            drawLevel()
-
-        }
+                }
 
             }
 
@@ -704,10 +737,10 @@
 
             this.height = height;
 
-            this.drawF= () => { ctx.drawImage(document.getElementById("F"), this.x - ViewportX, this.y - ViewportY, this.width, this.height) };
-            this.drawB= () => { ctx.drawImage(document.getElementById("B"), this.x - ViewportX, this.y - ViewportY, this.width, this.height) };
-            this.drawL= () => { ctx.drawImage(document.getElementById("L"), this.x - ViewportX, this.y - ViewportY, this.width, this.height) };
-            this.drawA= () => { ctx.drawImage(document.getElementById("A"), this.x - ViewportX, this.y - ViewportY, this.width, this.height) };
+            this.drawF = () => { ctx.drawImage(document.getElementById("F"), this.x - ViewportX, this.y - ViewportY, this.width, this.height) };
+            this.drawB = () => { ctx.drawImage(document.getElementById("B"), this.x - ViewportX, this.y - ViewportY, this.width, this.height) };
+            this.drawL = () => { ctx.drawImage(document.getElementById("L"), this.x - ViewportX, this.y - ViewportY, this.width, this.height) };
+            this.drawA = () => { ctx.drawImage(document.getElementById("A"), this.x - ViewportX, this.y - ViewportY, this.width, this.height) };
 
         }
 
@@ -773,16 +806,16 @@
 
             //Draw Win Conditions
 
-            if (LevelNumber == 1 && allowDraw){
+            if (LevelNumber == 1 && allowDraw) {
                 allWinConditions[0].drawF()
             }
-            if (LevelNumber == 2 && allowDraw){
+            if (LevelNumber == 2 && allowDraw) {
                 allWinConditions[0].drawB()
             }
-            if (LevelNumber == 3 && allowDraw){
+            if (LevelNumber == 3 && allowDraw) {
                 allWinConditions[0].drawL()
             }
-            if (LevelNumber == 4 && allowDraw){
+            if (LevelNumber == 4 && allowDraw) {
                 allWinConditions[0].drawA()
             }
 
