@@ -168,8 +168,22 @@
 
             this.LeftPressed;
 
-            /*this.checkRight = () => {
-                if () {
+            this.checkRight = () => {
+                var SideRow = CurrentMap[Math.floor((this.y + ViewportY) / 63)];
+
+                if (count = 1) {
+
+                    SideRowbottom = CurrentMap[Math.floor((this.y + this.height + ViewportY - 1) / 63 - 1)];
+
+                }
+
+                else {
+
+                    SideRowbottom = CurrentMap[Math.floor((this.y + this.height - 1) / 63)];
+
+                }
+
+                if (SideRow[Math.floor((this.x + 1 + this.width + ViewportX) / 63)] == 0 && SideRowbottom[Math.floor((this.x + 1 + this.width + ViewportX) / 63)] == 0) {
                     return true;
                 }
                 else {
@@ -178,7 +192,21 @@
             };
 
             this.checkLeft = () => {
-                if () {
+                var SideRow = CurrentMap[Math.floor((this.y + ViewportY) / 63)];
+
+                if (count = 1) {
+
+                    SideRowbottom = CurrentMap[Math.floor((this.y + this.height + ViewportY - 1) / 63 - 1)];
+
+                }
+
+                else {
+
+                    SideRowbottom = CurrentMap[Math.floor((this.y + this.height - 1) / 63)];
+
+                }
+
+                if (SideRow[Math.floor((this.x + ViewportX - 1) / 63)] == 0 && SideRowbottom[Math.floor((this.x + ViewportX - 1) / 63)] == 0) {
                     return true;
                 }
                 else {
@@ -186,17 +214,17 @@
                 }
             };
 
-            this.checkTop = () => {
-                if () {
-                    return true;
-                }
-                else {
-                    return false;
-                }
-            };
-*/
+            /* this.checkTop = () => {
+                 if () {
+                     return true;
+                 }
+                 else {
+                     return false;
+                 }
+             };
+ */
             this.checkBottom = () => {
-                 if (count === 0) {
+                if (count === 0) {
 
                     Row = CurrentMap[Math.floor((this.y + this.height) / 63)]
 
@@ -355,7 +383,7 @@
             }
 
             this.Fall = () => {
-                    if (this.checkBottom () === true) {
+                if (this.checkBottom() === true) {
                     this.falling = true;
 
                     if (this.y >= 500 && ViewportY < CurrentMap.length * 63 - 800) {
@@ -388,22 +416,7 @@
 
             this.moveRight = () => {
 
-                var SideRow = CurrentMap[Math.floor((this.y + ViewportY) / 63)];
-
-                if (count = 1) {
-
-                    SideRowbottom = CurrentMap[Math.floor((this.y + this.height + ViewportY - 1) / 63 - 1)];
-
-                }
-
-                else {
-
-                    SideRowbottom = CurrentMap[Math.floor((this.y + this.height - 1) / 63)];
-
-                }
-
-
-                if (SideRow[Math.floor((this.x + 1 + this.width + ViewportX) / 63)] == 0 && this.RightPressed == true && SideRowbottom[Math.floor((this.x + 1 + this.width + ViewportX) / 63)] == 0) {
+                if (this.RightPressed == true && this.checkRight() === true) {
 
                     if (this.x >= 750 && ViewportX / 63 <= CurrentMap[1].length - 1500 / 63) {
 
@@ -485,21 +498,7 @@
 
             this.moveLeft = () => {
 
-                var SideRow = CurrentMap[Math.floor((this.y + ViewportY) / 63)];
-
-                if (count = 1) {
-
-                    SideRowbottom = CurrentMap[Math.floor((this.y + this.height + ViewportY - 1) / 63 - 1)];
-
-                }
-
-                else {
-
-                    SideRowbottom = CurrentMap[Math.floor((this.y + this.height - 1) / 63)];
-
-                }
-
-                if (SideRow[Math.floor((this.x + ViewportX - 1) / 63)] == 0 && SideRowbottom[Math.floor((this.x + ViewportX - 1) / 63)] == 0 && this.LeftPressed == true) {
+                if (this.checkLeft() === true && this.LeftPressed == true) {
 
                     if (this.x >= 750 && (ViewportX - 1) / 63 > 0) {
 
@@ -891,7 +890,7 @@
 
                     player.jumping = true;
 
-                    if (this.y >= 500 && Math.floor((ViewportY - 1) / 63 > 0)) {
+                    if (player.y >= 500 && Math.floor((ViewportY - 1) / 63 > 0)) {
 
                         function jump1() {
 
@@ -951,11 +950,7 @@
 
         var Character = new MainCharacter(63, 63, 63, 63, 30, 63, 1, 180);
 
-        var CharacterTwo = new MainCharacter(63, 63, 63, 63, Character.width, Character.height, Character.speed, Character.fallspeed)
-
         window.addEventListener('load', (event) => {
-
-            //make second character
 
             changeMap();
 
@@ -1031,17 +1026,14 @@
 
                     case 65:
 
-                        if (Character.falling == false) {
-
+                        if (Character.falling == false && Character.RightPressed === false) {
                             Character.LastKeyPressed = "left"
 
                             if (Character.jumping == false) {
 
                                 if (isNotDead = true) {
-
-                                    Character.LeftPressed = true;
-
-
+                                    
+                                        Character.LeftPressed = true;
 
                                 }
 
@@ -1053,16 +1045,14 @@
 
                     case 68:
 
-                        if (Character.falling == false) {
+                        if (Character.falling == false && Character.LeftPressed === false) {
 
                             Character.LastKeyPressed = "right";
 
                             if (Character.jumping == false) {
 
                                 if (isNotDead) {
-
-                                    Character.RightPressed = true;
-
+                                        Character.RightPressed = true;
                                 }
 
                             }
@@ -1081,57 +1071,57 @@
 
                         }
 
-                    case 37:
-
-                        if (CharacterTwo.falling == false && SecondCharacter == true) {
-
-                            CharacterTwo.LastKeyPressed = "left";
-
-                            if (CharacterTwo.jumping == false) {
-
-                                if (isNotDead = true) {
-
-                                    CharacterTwo.LeftPressed = true;
-
-
-
-                                }
-
-                            }
-
-                        }
-
-                        break;
-
-                    case 39:
-
-                        if (CharacterTwo.falling == false && SecondCharacter == true) {
-
-                            CharacterTwo.LastKeyPressed = "right";
-
-                            if (CharacterTwo.jumping == false) {
-
-                                CharacterTwo.RightPressed = true;
-
-                            }
-
-                        }
-
-                        break;
-
-                    case 13:
-
-                        z++;
-
-                        if (z == 1) {
-
-                            SecondCharacter = true;
-
-                            makeSecondCharacter();
-
-                        }
-
-                        break;
+                    /* case 37:
+ 
+                         if (CharacterTwo.falling == false && SecondCharacter == true) {
+ 
+                             CharacterTwo.LastKeyPressed = "left";
+ 
+                             if (CharacterTwo.jumping == false) {
+ 
+                                 if (isNotDead = true) {
+ 
+                                     CharacterTwo.LeftPressed = true;
+ 
+ 
+ 
+                                 }
+ 
+                             }
+ 
+                         }
+ 
+                         break;
+ 
+                     case 39:
+ 
+                         if (CharacterTwo.falling == false && SecondCharacter == true) {
+ 
+                             CharacterTwo.LastKeyPressed = "right";
+ 
+                             if (CharacterTwo.jumping == false) {
+ 
+                                 CharacterTwo.RightPressed = true;
+ 
+                             }
+ 
+                         }
+ 
+                         break;
+ 
+                     case 13:
+ 
+                         z++;
+ 
+                         if (z == 1) {
+ 
+                             SecondCharacter = true;
+ 
+                             makeSecondCharacter();
+ 
+                         }
+ 
+                         break;*/
 
                 }
 
